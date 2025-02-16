@@ -63,11 +63,11 @@ void	parse_input(t_data *data, char **value)
 	data->time_to_die = ft_atol(value[2])*1000;
 	data->time_to_eat = ft_atol(value[3]) * 1000;
 	data->time_to_sleep = ft_atol(value[4]) * 1000;
-	if (data->time_to_die < 60000
-		|| data->time_to_eat < 60000
-		|| data->time_to_sleep < 60000)
+	if (data->time_to_die < 60 * 1000
+		|| data->time_to_eat < 60 * 1000
+		|| data->time_to_sleep < 60 * 1000)
 		error_exit("Use timestamps major than 60ms!");
-	if(data->philo_nbr == 0 || data->time_to_die == -1000 || data->time_to_eat == -1000 || data->time_to_sleep == -1000)
+	if(data->philo_nbr == -1 || data->time_to_die == -1 || data->time_to_eat == -1000 || data->time_to_sleep == -1000)
 		exit(1);
 	if (data->philo_nbr == 0 || data->time_to_die == 0
 		|| data->time_to_eat == 0 || data->time_to_sleep == 0)
