@@ -228,10 +228,9 @@ void	dinner_start(t_data *data)
 			add_long(&data->table_mtx, &data->philos_ready); // Atualiza o valor de threads
 		}
 	}
-	
-
+	printf("Todas as threads criadas\n"); // Mensagem de depuração
 	set_bool(&data->table_mtx, &data->all_threads_ready, true);
-
+	printf("Todas as threads prontas\n"); // Mensagem de depuração
 	i = -1;
 	while (data->philo_nbr > ++i)
 	{
