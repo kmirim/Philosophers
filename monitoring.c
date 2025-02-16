@@ -19,17 +19,23 @@ static bool philo_died(t_philo *philo)
 
 void    *monitor_dinner(void *info)
 {
+    printf("Thread de monitoramento iniciada\n"); //debug
     t_data *data;
     int     i;
 
     data = (t_data *)info;
-    i = -1;
+    printf("Esperando todos os filósofos estarem prontos...\n");
 
     while (!all_threads_running(&data->table_mtx, &data->philos_ready, data->philo_nbr))
+    {   
+        //printf("Ainda esperando... philos_ready: %d, philo_nbr: %d\n", data->philos_ready, data->philo_nbr); // Mensagem de depuração
         continue ;
-
+    }
+    printf("Todos os filosofos estão prontos\n"); //debug    
+    
     while (!sim_end(data))
     {
+        printf("Looping principal do monitoramento\n"); //debug
         i = -1;
         while (++i < data->philo_nbr && !sim_end(data))
         {

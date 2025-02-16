@@ -16,6 +16,7 @@ bool    all_threads_running(t_mtx *mtx, long *threads, long philo_nbr)
     
     threads_ready = false;
 	pthread_mutex_lock(mtx);
+	//printf("Verificando threads: threads = %ld, philo_nbr = %ld\n", *threads, philo_nbr); // Mensagem de depuração
     if (*threads == philo_nbr)
         threads_ready = true;
 	pthread_mutex_unlock(mtx);
@@ -23,10 +24,4 @@ bool    all_threads_running(t_mtx *mtx, long *threads, long philo_nbr)
     return (threads_ready);
 }
 
-void    add_long(t_mtx *mtx, long *var)
-{
-	pthread_mutex_lock(mtx);
-    	*var += 1;
-	pthread_mutex_unlock(mtx);
-}
 

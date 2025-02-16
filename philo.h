@@ -152,6 +152,8 @@ long	get_long(t_mtx *mtx, long *value); //acessa
 bool	get_bool(t_mtx *mtx, bool *value); //acessa
 bool	sim_end(t_data *data); // verifica
 
+void	add_long(t_mtx *mtx, long *var);
+
 //---------synchro utils-----------//
 void	wait_all_threads(t_data *data);
 bool    all_threads_running(t_mtx *mtx, long *threads, long philo_nbr);

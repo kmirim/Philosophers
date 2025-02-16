@@ -194,7 +194,18 @@ void	dinner_start(t_data *data)
 	i = -1;
 	data->init_s = gettime(MILLISECOND);
 	printf("data->init_s : %i\n", data->init_s);
-	pthread_create(&data->monitor_thread, NULL, monitor_dinner, (void *)data);
+	int result = pthread_create(&data->monitor_thread, NULL, monitor_dinner, (void *)data);
+    //debugger
+	if (result != 0)
+    {
+        printf("Erro na criação da thread do monitor: %s\n", strerror(result));
+        return;
+    }
+    else
+    {
+        printf("Thread de monitoramento criada com sucesso\n"); // Mensagem de depuração
+    }
+	//ta vindo até aqui!
 	if (data->nbr_max_meals == 0)
 		return ;
 	else if (data->philo_nbr == 1)
@@ -202,7 +213,20 @@ void	dinner_start(t_data *data)
 	else
 	{
 		while (data->philo_nbr > ++i)
-			pthread_create(&data->philos[i].thread_id, NULL, dinner_simulation, &data->philos[i]);
+		{
+			//debugger
+			result = pthread_create(&data->philos[i].thread_id, NULL, dinner_simulation, &data->philos[i]);
+            if (result != 0)
+            {
+                printf("Erro na criação da thread do filósofo %d: %s\n", i, strerror(result));
+                return;
+            }
+			else
+			{
+				printf("Thread do filósofo %d criada com sucesso\n", i); // Mensagem de depuração
+			}
+			add_long(&data->table_mtx, &data->philos_ready); // Atualiza o valor de threads
+		}
 	}
 	
 
@@ -210,7 +234,11 @@ void	dinner_start(t_data *data)
 
 	i = -1;
 	while (data->philo_nbr > ++i)
+	{
+		printf("valor de pthread(antes): %i\n", data->philos[i].thread_id);
 		pthread_join(data->philos[i].thread_id, NULL);
+		printf("valor de pthread(depois): %i\n", data->philos[i].thread_id);
+	}
 	pthread_join(data->monitor_thread, NULL);
 	pthread_mutex_lock(&data->write_mtx);
 	data->finish_s = true;
