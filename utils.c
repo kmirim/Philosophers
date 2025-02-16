@@ -36,21 +36,19 @@ void    desynch_philo(t_philo *philo)
 long	gettime(t_time_code time_code)
 {
 	struct	timeval	tv;
-    static long start_time = 0;
-    long current_time;
+	static long start_time = 0;
+	long current_time;
 
 	if (gettimeofday(&tv, NULL))
 		error_exit("Gettimeofday failed!");
+	current_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	
-    current_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-    
-    if (start_time == 0)
-        start_time = current_time;
-    
-    if (time_code == SECOND)
+	if (start_time == 0)
+		start_time = current_time;
+	if (time_code == SECOND)
 		return (current_time - start_time / 1000);
 	else if (time_code == MILLISECOND)
-		return (start_time - current_time);
+		return (current_time - start_time);
 	else if (time_code == MICROSECOND)
 		return (current_time - start_time) * 1000;
 	else
