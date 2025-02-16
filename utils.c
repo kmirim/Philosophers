@@ -32,18 +32,27 @@ void    desynch_philo(t_philo *philo)
     }
 }
 
+
 long	gettime(t_time_code time_code)
 {
 	struct	timeval	tv;
+    static long start_time = 0;
+    long current_time;
 
 	if (gettimeofday(&tv, NULL))
 		error_exit("Gettimeofday failed!");
-	if (time_code == SECOND)
-		return (tv.tv_sec + (tv.tv_usec / 1000000));
+	
+    current_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    
+    if (start_time == 0)
+        start_time = current_time;
+    
+    if (time_code == SECOND)
+		return (current_time - start_time / 1000);
 	else if (time_code == MILLISECOND)
-		return (tv.tv_sec * 1000 + (tv.tv_usec / 1000));
+		return (start_time - current_time);
 	else if (time_code == MICROSECOND)
-		return ((tv.tv_sec * 1000000) + tv.tv_usec);
+		return (current_time - start_time) * 1000;
 	else
 		error_exit("Wrong input to gettime!");
 	return (42);
