@@ -35,25 +35,37 @@ void    desynch_philo(t_philo *philo)
 
 long	gettime(t_time_code time_code)
 {
-	struct	timeval	tv;
-	static long start_time = 0;
-	long current_time;
+    struct timeval tv; // Estrutura para armazenar o tempo atual
+    static long start_time = 0; // Variável estática para armazenar o tempo inicial
+    long current_time; // Variável para armazenar o tempo atual em milissegundos
 
-	if (gettimeofday(&tv, NULL))
-		error_exit("Gettimeofday failed!");
-	current_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	
-	if (start_time == 0)
-		start_time = current_time;
-	if (time_code == SECOND)
-		return (current_time - start_time) / 1000;
-	else if (time_code == MILLISECOND)
-		return (current_time - start_time);
-	else if (time_code == MICROSECOND)
-		return (current_time - start_time) * 1000;
-	else
-		error_exit("Wrong input to gettime!");
-	return (42);
+    // Obtém o tempo atual e armazena em 'tv'
+    if (gettimeofday(&tv, NULL))
+        error_exit("Gettimeofday failed!");
+
+    // Converte o tempo atual para milissegundos
+    current_time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+
+    // Inicializa 'start_time' na primeira chamada da função
+    if (start_time == 0)
+        start_time = current_time;
+
+    // Calcula o tempo decorrido com base no código de tempo fornecido
+    if (time_code == SECOND)
+        // Retorna o tempo decorrido em segundos
+        return (current_time - start_time) / 1000;
+    else if (time_code == MILLISECOND)
+        // Retorna o tempo decorrido em milissegundos
+        return current_time - start_time;
+    else if (time_code == MICROSECOND)
+        // Retorna o tempo decorrido em microssegundos
+        return (current_time - start_time) * 1000;
+    else
+        // Se o código de tempo for inválido, exibe uma mensagem de erro
+        error_exit("Wrong input to gettime!");
+
+    // Retorno padrão (nunca deve ser alcançado devido ao error_exit)
+return (42);
 }
 
 void    precise_usleep(long usec, t_data *data)
