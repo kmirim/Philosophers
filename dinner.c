@@ -23,6 +23,7 @@
 
 /*TESTAR O PRINT DO TEMPO TO DESESPERADO*/
 
+/*
 
 size_t	current_ms(void)
 {
@@ -33,7 +34,7 @@ size_t	current_ms(void)
 	return(time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-/*
+
 int	ft_usleep(size_t milliseconds)
 {
 	size_t	start;
@@ -52,13 +53,12 @@ static void eat(t_philo *philo)
 	//printf("Philo %d picked up first fork\n", philo->id_philo); // Log de depuração
 	
 	/*colocando write no scopo para verificar*/
-	long time = current_ms() - philo->data->init_s; 
+	long time = gettime(MILLISECOND) - philo->data->init_s; 
 	
 	if (!philo->max_meals) {
-		
 		pthread_mutex_lock(&philo->data->write_mtx);
 		if (!sim_end(philo->data)) {
-			printf("%lxd %d has taken a fork\n", time, philo->id_philo);
+			printf("%-6ld"" %d has taken a fork\n", time, philo->id_philo);
 		}
 		pthread_mutex_unlock(&philo->data->write_mtx);
 	}

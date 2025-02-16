@@ -15,8 +15,8 @@
 int	main(int count, char **value)
 {
 	t_data data;
-	data.start_time = gettime(MILLISECOND);
-	
+//	data.start_time = gettime(MILLISECOND);
+//	init_time();
 	if (5 == count || 6 == count)
 	{
 		parse_input(&data, value);
