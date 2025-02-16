@@ -80,9 +80,8 @@ static void eat(t_philo *philo)
     	pthread_mutex_unlock(&philo->data->write_mtx);
 	}
 
-
-	set_long(&philo->philo_mtx, &philo->last_meal_time, gettime(MILLISECOND));
-	philo->meals_counter++;
+	set_long(&philo->philo_mtx, &philo->last_meal_time, gettime(MILLISECOND)); //modifica(mtx do philo para não ser acessado, ultimo momento que foi feita refeição, tempo atual);
+	philo->meals_counter++; //incrementa a quantidade de refeições feitas pelo filosofo;
 	//write_status(EATING,philo);
 	//printf("Philo %d is eating\n", philo->id_philo); // Log de depuração
 	time = gettime(MILLISECOND) - philo->data->init_s;
@@ -99,7 +98,7 @@ static void eat(t_philo *philo)
 	
 	if (philo->data->nbr_max_meals > 0 
 		&& philo->meals_counter == philo->data->nbr_max_meals)
-		set_bool(&philo->philo_mtx, &philo->max_meals, true);	
+		set_bool(&philo->philo_mtx, &philo->max_meals, true); // Verifica se a refeição atual é igual ao número máximo de refeições.	
 	
 	pthread_mutex_unlock(&philo->second_fork->fork_mtx);
 	pthread_mutex_unlock(&philo->first_fork->fork_mtx);
