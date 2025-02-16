@@ -89,3 +89,10 @@ bool	sim_end(t_data *data)
 {
 	return (get_bool(&data->table_mtx, &data->finish_s));
 }
+
+void add_long(t_mtx *mtx, long *var)
+{
+    pthread_mutex_lock(mtx);
+    *var += 1;
+    pthread_mutex_unlock(mtx);
+}
