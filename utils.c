@@ -46,7 +46,7 @@ long	gettime(t_time_code time_code)
 	if (start_time == 0)
 		start_time = current_time;
 	if (time_code == SECOND)
-		return (current_time - start_time / 1000);
+		return (current_time - start_time) / 1000;
 	else if (time_code == MILLISECOND)
 		return (current_time - start_time);
 	else if (time_code == MICROSECOND)
