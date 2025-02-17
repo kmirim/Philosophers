@@ -60,7 +60,6 @@ void    precise_usleep(long usec, t_data *data)
 {
     long    start_time;
     long    passed;
-    long    current_time;
     long    remaining;
 
     start_time = gettime(MICROSECOND);

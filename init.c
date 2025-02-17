@@ -53,6 +53,7 @@ void	data_init(t_data *data)
 	i = -1;
 	data->finish_s = false;
 	data->all_threads_ready = false;
+	data->philos_ready = 0;
 	data->philos = safe_malloc(sizeof(t_philo) * data->philo_nbr);
 	pthread_mutex_init(&data->table_mtx, NULL);	
 	pthread_mutex_init(&data->write_mtx, NULL);	
