@@ -6,7 +6,7 @@
 /*   By: lbarcelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:18:31 by lbarcelo          #+#    #+#             */
-/*   Updated: 2025/02/12 18:18:32 by lbarcelo         ###   ########.fr       */
+/*   Updated: 2025/02/17 04:25:53 by lbarcelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int count, char **value)
 {
-	t_data data;
+	t_data	data;
+
 	if (5 == count || 6 == count)
 	{
 		parse_input(&data, value);
