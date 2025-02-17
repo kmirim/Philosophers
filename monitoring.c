@@ -1,6 +1,5 @@
 #include "philo.h"
 
-//reescrever esas merda pq nao faz o menor sentido!!!!
 static bool philo_died(t_philo *philo)
 {
     long    duration;
@@ -19,21 +18,16 @@ static bool philo_died(t_philo *philo)
 
 void    *monitor_dinner(void *info)
 {
-    // printf("Thread de monitoramento iniciada\n"); //debug
     t_data *data;
     int     i;
     int     max_eat = 0;
 
     data = (t_data *)info;
-    // printf("Esperando todos os filósofos estarem prontos...\n");
 
     while (!all_threads_running(&data->table_mtx, &data->philos_ready, data->philo_nbr))
-        continue ;
-    // printf("Todos os filosofos estão prontos\n"); //debug    
-    
+        continue ;    
     while (!sim_end(data))
     {
-        // printf("Looping principal do monitoramento\n"); //debug
         i = -1;
         while (++i < data->philo_nbr && !sim_end(data))
         {
@@ -41,7 +35,6 @@ void    *monitor_dinner(void *info)
             {
                 t_philo *philo;
 		        philo = data->philos + i;
-                //write_status(DEAD, data->philos + i);
                 long time = gettime(MILLISECOND) - philo->data->init_s;
                 pthread_mutex_lock(&philo->data->write_mtx);
                 if (!sim_end(philo->data)) 
@@ -62,6 +55,5 @@ void    *monitor_dinner(void *info)
         if (data->philos[i].max_meals)
             break;
     }
-    // printf("Fim do monitoramento\n"); //debug
     return (NULL);
 }
